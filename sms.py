@@ -1,16 +1,15 @@
 import os
 import requests
-
-
-
+from dotenv import load_dotenv
 
 
 class Sms():
 
     def __init__(self):
-        self.url_for_get = f'https://portal.nigeriabulksms.com/api/?username={os.environ.get("sms_username")}&password={os.environ.get("sms_password")}&action'
-        self.url_for_post  = f'https://portal.nigeriabulksms.com/api/?username={os.environ.get("sms_username")}&password={os.environ.get("sms_password")}'
- 
+        load_dotenv()
+        self.url_for_get = f'https://portal.nigeriabulksms.com/api/?username={os.getenv("sms_username")}&password={os.getenv("sms_password")}&action'
+        self.url_for_post  = f'https://portal.nigeriabulksms.com/api/?username={os.getenv("sms_username")}&password={os.getenv("sms_password")}'
+    
     def balance_getter(self):
         url = f'{self.url_for_get}=balance'
         balance = requests.get(url=url).json()
@@ -25,6 +24,4 @@ class Sms():
         msg_number =f'{self.url_for_post}&message={message}&sender={sender}&mobiles={phone_numbers}'
         send_sms = requests.post(msg_number)
         return send_sms
-new = Sms()
 
-# print(new.report_getter())

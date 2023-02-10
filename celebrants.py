@@ -8,7 +8,12 @@ from dotenv import load_dotenv
 from messages import messages
 
 
-
+email_from = 'secretariat@abc.org.ng'
+password = 'ABCilasamaja1953'
+# email_to = ['justmeontop@gmail.com',"benjamin20130874@gmail.com",
+# 'oye93@aol.com',"Oluwatidamilare19@gmail.com","oshinojo.adedeji@gmail.Com",
+# "Kennykolaru@gmail.com"]
+email_to = ['oye93@aol.com']
 
 class Celebrants:
 
@@ -30,7 +35,7 @@ class Celebrants:
     def today_birthday_celebrants(self):
         celebrant_details = {}
         today = datetime.datetime.today().date()
-        # today = datetime.datetime(2020, 6, 30)
+        # today = datetime.datetime(1993, 3, 9)
         month = today.month
         day = today.day
         phone_number = self.df[self.df.month_and_day ==
@@ -89,71 +94,39 @@ class Celebrants:
         messsage_picked = messages['bday_months'][0][month]
         return messsage_picked
 
-    
-           
     def messaging(self):
         # for the day birthday celebrants
         if self.b_day_checker():
-            message_details = {'names': [],
-                               'messages': [],
-                               'full_name': []}
+            
             sms = Sms()
             email = SendEmail()
             sender_name = 'Araba B.C'
             for i in self.today_birthday_celebrants():
-                # first_name = i[0]
-                # phone_numbers = i[2]
                 phone_numbers = i[3]
+                # phone_numbers = '08080415982'
                 name = f'{i[0]} {i[1]}'
-
                 message = self.b_day_message_picker(name)
-                message_details['names'].append(name)
-                message_details['messages'].append(message)
                 subject = 'Happy Birthday'
-             
+
                 sms.sms_sender(sender=sender_name,
                                phone_numbers=phone_numbers, message=message)
-                try:
-                    email.send_email(os.getenv('secretariat_email')), os.getenv((
-                        'secretariat_password'), subject, message, i[4])
-                except:
-                    pass
+            
 
-         
-        else:
-            messagess = 'No Birthday Sms was sent today'
-            subject = 'no bday'
-            try:
-                email.send_email(os.getenv('secretariat_email')), os.getenv((
-                    'secretariat_password'), subject, message, i[4])
-            except:
-                pass
-
-          
         if self.wedding_checker():
-            message_details = {'names': [],
-                               'messages': [],
-                               'wed_names': []}
+           
             sms = Sms()
             sender_name = 'Araba B.C'
             for i in self.today_wedding():
-                phone_numbers = i[1]
-                # phone_numbers = '2348080415982'
-                name = i[0]
-                age = i[2]
+                # phone_numbers = i[3]
+                phone_numbers = '2348080415982'
+                name = f'{i[0]} {i[1]}'
+                age = i[5]
                 message = self.wed_message_picker(age)
-                message_details['wed_names'].append(name)
-                message_details['messages'].append(message)
+               
                 sms.sms_sender(sender=sender_name,
                                phone_numbers=phone_numbers, message=message)
-
-            messagess = f"wedding message was sent to {message_details['wed_names']}"
-            subject = 'wedding sent'
-           
-        else:
-            messagess = "No Wedding Sms was sent today"
-            subject = 'wedding not sent'
             
+
 # for the month birthday celebrant
         if datetime.datetime.today().date().day == 1 and len(self.month_birthday()) > 0:
             sms = Sms()
@@ -164,11 +137,11 @@ class Celebrants:
                 [str(elem) for elem in phone_numbers if len(elem) > 9])
             message = self.birthday_month_message_picker(
                 datetime.datetime.today().date().month)
-            sms.sms_sender(sender=sender_name,
-                           phone_numbers=phone_numberss, message=message)
+            # sms.sms_sender(sender=sender_name,
+            #                phone_numbers=phone_numberss, message=message)
             messagess = f"monthly b_day message was sent to  {name}"
             subject = 'bday sent'
-           
+
 # A new month message to everyone
         if datetime.datetime.today().date().day == 1:
             sms = Sms()
@@ -184,39 +157,12 @@ class Celebrants:
             print('sms sent')
             messagess = f"monthly message was sent to  everybody, {message}"
             subject = 'New Month'
-           
+
+        try:
+            email.send_email(email_from,password,email_to,b_details= self.today_birthday_celebrants(), w_details=self.today_wedding())
+        except Exception as e :
+            print(f'bday {e}')
 
 
-print(Celebrants().messaging())
-# Celebrants().messaging()
+print(Celebrants().today_birthday_celebrants())
 
-
-# # os.getenv(
-
-# user = 'arababaptistchurch@ymail.com'
-# password = 'chhxqcqaewdofmmy'
-# recipient= 'akinbodebamigboye@gmail.com'
-# smtp_detail = 'smtp.mail.yahoo.com'
-# SMTP_PORT = 587
-# sms_username = 'secretariat@abc.org.ng'
-# sms_password = 'Kimgo9-kejhim-bahwew'
-
-
-# def send_email(msg,EMAIL_SUBJECT):
-#     msg = MIMEText(msg)
-#     msg['Subject'] = EMAIL_SUBJECT
-#     msg['From'] = user
-#     msg['To'] = recipient
-#     debuglevel = True
-#     mail = smtplib.SMTP(smtp_detail, SMTP_PORT)
-#     mail.set_debuglevel(debuglevel)
-#     mail.starttls()
-#     mail.login(user, password)
-#     mail.sendmail(user, recipient, msg.as_string())
-#     mail.quit()
-
-
-# # def wedding_age(new):
-# #     this_year = datetime.datetime.today().year
-# #     age = this_year - new.year
-# #     return age

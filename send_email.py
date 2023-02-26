@@ -1,8 +1,3 @@
-
-email_from = 'secretariat@abc.org.ng'
-password = 'ABCilasamaja1953'
-email_to = 'akinbodebamigboye@gmail.com'
-
 import smtplib, ssl
 ## email.mime subclasses
 from email.mime.multipart import MIMEMultipart
@@ -10,16 +5,7 @@ from email.mime.text import MIMEText
 ## The pandas library is only for generating the current date, which is not necessary for sending emails
 import pandas as pd
 
-email_from = 'secretariat@abc.org.ng'
-password = 'ABCilasamaja1953'
-email_to = 'akinbodebamigboye@gmail.com'
 
-import smtplib, ssl
-## email.mime subclasses
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-## The pandas library is only for generating the current date, which is not necessary for sending emails
-import pandas as pd
 
 
 
@@ -68,10 +54,3 @@ class SendEmail:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(sender_address, sender_pass)
             server.sendmail(sender_address, recipient, email_string)
-        
-    
-    
-
-
-# print(SendEmail().send_email(email_from,password,email_to,[1,2,3],[2]))
-# print(SendEmail().anniversary_items([1,2,3]))

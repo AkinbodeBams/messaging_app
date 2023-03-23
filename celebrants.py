@@ -10,10 +10,10 @@ from messages import messages
 
 email_from = 'secretariat@abc.org.ng'
 password = 'ABCilasamaja1953'
-email_to = ['justmeontop@gmail.com', "benjamin20130874@gmail.com",
-            'oye93@aol.com', "Oluwatidamilare19@gmail.com", "oshinojo.adedeji@gmail.Com",
-            "Kennykolaru@gmail.com"]
-# email_to = ['oye93@aol.com']
+# email_to = ['justmeontop@gmail.com', "benjamin20130874@gmail.com",
+#             'oye93@aol.com', "Oluwatidamilare19@gmail.com", "oshinojo.adedeji@gmail.Com",
+#             "Kennykolaru@gmail.com"]
+email_to = ['oye93@aol.com']
 
 
 class Celebrants:
@@ -97,6 +97,7 @@ class Celebrants:
         return messsage_picked
 
     def messaging(self):
+        print('checking')
         # for the day birthday celebrants
         if self.b_day_checker():
 
@@ -110,8 +111,8 @@ class Celebrants:
                 message = self.b_day_message_picker(name)
                 subject = 'Happy Birthday'
 
-                sms.sms_sender(sender=sender_name,
-                               phone_numbers=phone_numbers, message=message)
+                # sms.sms_sender(sender=sender_name,
+                #                phone_numbers=phone_numbers, message=message)
 
         if self.wedding_checker():
 
@@ -124,8 +125,8 @@ class Celebrants:
                 age = i[5]
                 message = self.wed_message_picker(age)
 
-                sms.sms_sender(sender=sender_name,
-                               phone_numbers=phone_numbers, message=message)
+                # sms.sms_sender(sender=sender_name,
+                #                phone_numbers=phone_numbers, message=message)
 
 
 # for the month birthday celebrant
@@ -139,9 +140,24 @@ class Celebrants:
                 [str(elem) for elem in phone_numbers if len(elem) > 9])
             message = self.birthday_month_message_picker(
                 datetime.datetime.today().date().month)
-            print(f'{name}')
-            sms.sms_sender(sender=sender_name,
-                           phone_numbers=phone_numberss, message=message)
+            # print(f'{name}')
+            # sms.sms_sender(sender=sender_name,
+            #                phone_numbers=phone_numberss, message=message)
+
+
+# A new month message to everyone
+        # if datetime.datetime.today().date().day == 26:
+        #     sms = Sms()
+        #     sender_name = 'Araba B.C'
+        #     phone_numbers = self.monthly_msg()
+
+        #     phone_numberss = ','.join(
+        #         [str(elem) for elem in phone_numbers if len(elem) > 9])
+        #     message = self.general_month_message_picker(
+        #         datetime.datetime.today().date().month)
+            # sms.sms_sender(sender=sender_name,
+            #                phone_numbers=phone_numberss, message=message)
+
         try:
             self.sendemail.send_email(email_from, password, email_to, b_details=self.today_birthday_celebrants(
             ), w_details=self.today_wedding(), m_details=self.month_birthday_celebrants())
@@ -149,4 +165,4 @@ class Celebrants:
             print(f'bday {e}')
 
 
-Celebrants().today_birthday_celebrants()
+print(Celebrants().today_birthday_celebrants())

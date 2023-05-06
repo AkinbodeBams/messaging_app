@@ -10,10 +10,10 @@ from messages import messages
 
 email_from = 'secretariat@abc.org.ng'
 password = 'ABCilasamaja1953'
-# email_to = ['justmeontop@gmail.com', "benjamin20130874@gmail.com",
-#             'oye93@aol.com', "Oluwatidamilare19@gmail.com", "oshinojo.adedeji@gmail.Com",
-#             "Kennykolaru@gmail.com"]
-email_to = ['oye93@aol.com']
+email_to = ['justmeontop@gmail.com', "benjamin20130874@gmail.com",
+            'oye93@aol.com', "Oluwatidamilare19@gmail.com", "oshinojo.adedeji@gmail.Com",
+            "Kennykolaru@gmail.com"]
+# email_to = ['oye93@.com']
 
 
 class Celebrants:
@@ -111,8 +111,8 @@ class Celebrants:
                 message = self.b_day_message_picker(name)
                 subject = 'Happy Birthday'
 
-                # sms.sms_sender(sender=sender_name,
-                #                phone_numbers=phone_numbers, message=message)
+                sms.sms_sender(sender=sender_name,
+                               phone_numbers=phone_numbers, message=message)
 
         if self.wedding_checker():
 
@@ -125,8 +125,8 @@ class Celebrants:
                 age = i[5]
                 message = self.wed_message_picker(age)
 
-                # sms.sms_sender(sender=sender_name,
-                #                phone_numbers=phone_numbers, message=message)
+                sms.sms_sender(sender=sender_name,
+                               phone_numbers=phone_numbers, message=message)
 
 
 # for the month birthday celebrant
@@ -141,8 +141,8 @@ class Celebrants:
             message = self.birthday_month_message_picker(
                 datetime.datetime.today().date().month)
             # print(f'{name}')
-            # sms.sms_sender(sender=sender_name,
-            #                phone_numbers=phone_numberss, message=message)
+            sms.sms_sender(sender=sender_name,
+                           phone_numbers=phone_numberss, message=message)
 
 
 # A new month message to everyone
@@ -165,4 +165,4 @@ class Celebrants:
             print(f'bday {e}')
 
 
-print(Celebrants().today_birthday_celebrants())
+print(Celebrants().messaging())

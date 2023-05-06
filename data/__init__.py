@@ -13,8 +13,8 @@ class Data:
 
     def __init__(self):
         load_dotenv()
-        # self.engine = 'postgresql://postgres:1855@localhost/araba-django'
-        self.engine = os.getenv('db')
+        self.engine = 'postgresql://postgres:1855@localhost/araba-django'
+        # self.engine = os.getenv('db')
         self.df = pd.read_sql('select * from app_members', con=self.engine)
         self.df['wedding_date'] = pd.to_datetime(
             self.df['wedding_date'], errors='coerce')
